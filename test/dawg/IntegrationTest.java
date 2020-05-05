@@ -70,13 +70,17 @@ public class IntegrationTest {
     
     @Test
     public void testDictContent() {
-        List<String> result = dict.listSuffixes("");
+        List<String> result1 = dict.listSuffixes("");
+        List<String> result2 = dict.listSuffixes("abc1");
         
         // Testing that iterator does not return duplicate entries
-        Assert.assertEquals(testSet.size(), result.size());
+        Assert.assertEquals(testSet.size(), result1.size());
         
         // Testing that unique set of test array equals the unique set of dictionary entries
-        Assert.assertEquals(testSet, new HashSet<>(result));
+        Assert.assertEquals(testSet, new HashSet<>(result1));
+        
+        // Testing that nothing is found for entry absent in the dictionary
+        Assert.assertEquals(0, result2.size());
     }
     
     @Test

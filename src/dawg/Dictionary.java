@@ -57,12 +57,12 @@ public class Dictionary<T extends DictState> implements ISearch {
     public List<String> listSuffixes(String prefix) {
         int state = getWordLastState(prefix);
         
-        if (state == -1) {
-            return Collections.EMPTY_LIST;
-        } else {
+        if (state > -1) {
             Collector collector = new Collector();
             recursiveTraversal(state, "", collector);
-            return collector.values;
+            return collector.values;            
+        } else {
+            return Collections.EMPTY_LIST;
         }
     }
     
@@ -70,7 +70,7 @@ public class Dictionary<T extends DictState> implements ISearch {
     public void listSuffixes(String prefix, ICollector collector) {
         int state = getWordLastState(prefix);
         
-        if (state != 0) {
+        if (state > -1) {
             recursiveTraversal(state, "", collector);
         }
     }
