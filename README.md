@@ -41,4 +41,4 @@ Automaton newAuto = Automaton.load("mydict_modifiable.bin");
 ```
 
 # Performance
-Tested (and heavily used) as morphological (POS-tagging and lemmatization) dictionary core for Russian. 5M wordforms with annotations compile in about 50 seconds into a 4-5M binary file (depending on format) on i5-2400. Automaton class is not thread safe, Dictionary class can be accessed by several threads since it is stateless.
+Tested (and heavily used) as morphological (POS-tagging and lemmatization) dictionary core for Russian. 5M wordforms with annotations compile in about 50 seconds into a 4-5M binary file (depending on format) on i5-2400. Suffix searching speed (needed for morphologycal annotations retrieval) on the same CPU is about 250K searches per second single-threaded. Automaton class is not thread safe, Dictionary class can be accessed by several threads since it is stateless.
