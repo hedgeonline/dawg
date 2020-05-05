@@ -34,13 +34,14 @@ import java.util.List;
  * @author hedge
  * @param <T>
  */
-public class Dictionary<T extends DictState> {
+public class Dictionary<T extends DictState> implements ISearch {
     protected final List<T> states;
     
     protected Dictionary(List<T> states) {
         this.states = states;
     }
     
+    @Override
     public boolean contains(String value) {
         int state = getWordLastState(value);
         
@@ -51,11 +52,18 @@ public class Dictionary<T extends DictState> {
         }
     }
     
-    public List<String> listAllAfterPrefix(String prefix) {
+    @Override
+    public List<String> listSuffixes(String prefix) {
         int state = getWordLastState(prefix);
         Collector collector = new Collector();
-        recursiveTraversal(state, prefix, collector);
+        recursiveTraversal(state, "", collector);
         return collector.values;
+    }
+    
+    @Override
+    public void listSuffixes(String prefix, ICollector collector) {
+        int state = getWordLastState(prefix);
+        recursiveTraversal(state, "", collector);
     }
     
     public int stateCount() {
@@ -69,7 +77,7 @@ public class Dictionary<T extends DictState> {
         return prefix[prefix.length - 1];
     }
     
-    protected void recursiveTraversal(int state, String value, Collector collector) {
+    protected void recursiveTraversal(int state, String value, ICollector collector) {
         DictState wrapper = states.get(state);
         
         if (wrapper.isTerminal()) {
@@ -108,9 +116,10 @@ public class Dictionary<T extends DictState> {
         return states.get(state).isTerminal();
     }
     
-    protected class Collector {
+    protected class Collector implements ICollector {
         List<String> values = new ArrayList<>();
         
+        @Override
         public void collect(String value) {
             values.add(value);
         }

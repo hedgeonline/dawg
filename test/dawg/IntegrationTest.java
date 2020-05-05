@@ -70,7 +70,7 @@ public class IntegrationTest {
     
     @Test
     public void testDictContent() {
-        List<String> result = dict.listAllAfterPrefix("");
+        List<String> result = dict.listSuffixes("");
         
         // Testing that iterator does not return duplicate entries
         Assert.assertEquals(testSet.size(), result.size());
@@ -99,9 +99,9 @@ public class IntegrationTest {
         bais1.reset();
         Automaton auto = Automaton.load(bais1);
         
-        List<String> result1 = dict1.listAllAfterPrefix("");
-        List<String> result2 = dict2.listAllAfterPrefix("");
-        List<String> result3 = auto.listAllAfterPrefix("");
+        List<String> result1 = dict1.listSuffixes("");
+        List<String> result2 = dict2.listSuffixes("");
+        List<String> result3 = auto.listSuffixes("");
         
         Assert.assertEquals(testSet, new HashSet<>(result1));
         Assert.assertEquals(testSet, new HashSet<>(result2));   
