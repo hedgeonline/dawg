@@ -166,7 +166,7 @@ public class Automaton extends Dictionary<AutoState> {
         states.get(state).dencrementInbound();
     }
     
-    public int add(AutoState wrapper) {
+    protected int add(AutoState wrapper) {
         int index = states.size();
         
         states.add(wrapper);
@@ -174,11 +174,11 @@ public class Automaton extends Dictionary<AutoState> {
         return index;
     }
     
-    public void set(int state, AutoState wrapper) {
+    protected void set(int state, AutoState wrapper) {
         states.set(state, wrapper);
     }
     
-    public int findConfluence(int[] stateList) {        
+    protected int findConfluence(int[] stateList) {        
         for (int i = 0; i < stateList.length; i++) {
             if (states.get(stateList[i]).inboundCount() > 1) {
                 return i;
