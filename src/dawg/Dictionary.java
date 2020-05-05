@@ -27,6 +27,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class Dictionary<T extends DictState> implements ISearch {
     public boolean contains(String value) {
         int state = getWordLastState(value);
         
-        if (state > 0) {
+        if (state > -1) {
             return isFinal(state);
         } else {
             return false;
@@ -55,15 +56,23 @@ public class Dictionary<T extends DictState> implements ISearch {
     @Override
     public List<String> listSuffixes(String prefix) {
         int state = getWordLastState(prefix);
-        Collector collector = new Collector();
-        recursiveTraversal(state, "", collector);
-        return collector.values;
+        
+        if (state == -1) {
+            return Collections.EMPTY_LIST;
+        } else {
+            Collector collector = new Collector();
+            recursiveTraversal(state, "", collector);
+            return collector.values;
+        }
     }
     
     @Override
     public void listSuffixes(String prefix, ICollector collector) {
         int state = getWordLastState(prefix);
-        recursiveTraversal(state, "", collector);
+        
+        if (state != 0) {
+            recursiveTraversal(state, "", collector);
+        }
     }
     
     public int stateCount() {
@@ -74,7 +83,13 @@ public class Dictionary<T extends DictState> implements ISearch {
         char[] word = value.toCharArray();
         int[] prefix = new int[word.length + 1];
         getCommonPrefix(word, prefix);
-        return prefix[prefix.length - 1];
+        int last = prefix[prefix.length - 1];
+        
+        if (last == 0 && prefix.length > 1) {
+            return -1;
+        } else {        
+            return last;
+        }
     }
     
     protected void recursiveTraversal(int state, String value, ICollector collector) {
