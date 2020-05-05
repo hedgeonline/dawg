@@ -4,7 +4,7 @@ Yet another Java library for storing (and searching) strings in a Directed Acycl
 This is another java implementation of algorithm described in https://www.aclweb.org/anthology/W98-1305.pdf. It was written in 2015 for a Natural Language Processing engine and now it's available here. The current implementation uses binary search for both compilation and search and requires less memory for large alphabet dictionaries.
 
 # Download
-If ou want a plain JAR-file (JDK 1.7), you can get it here https://sourceforge.net/projects/hedgeonline-dawg/files
+If you want a plain JAR-file (JDK 1.7), you can get it here https://sourceforge.net/projects/hedgeonline-dawg/files
 
 # Dependencies
 No dependencies except for JUnit4, used for testing.
